@@ -1,0 +1,503 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+/* Page Header and Title */
+.headerArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--slate-200);
+  padding-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.titleIcon {
+  font-size: 2rem;
+}
+
+/* Export Button */
+.exportBtn {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: #ffffff;
+  border: none;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.15);
+  transition: all 0.2s ease;
+}
+
+.exportBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(22, 163, 74, 0.25);
+}
+
+/* KPI Statistics Cards Grid */
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+}
+
+.kpiCard {
+  background: var(--card-background);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpiCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.kpiLabel {
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: var(--slate-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.kpiValue {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--slate-900);
+}
+
+/* Colorful left accent bars for KPIs */
+.kpiTotal { border-left: 4px solid var(--secondary); }
+.kpiPending { border-left: 4px solid var(--pending); }
+.kpiApproved { border-left: 4px solid var(--success); }
+.kpiRejected { border-left: 4px solid var(--danger); }
+.kpiCompliance { border-left: 4px solid var(--primary-light); }
+
+/* Filters Bar Container */
+.filterBar {
+  background: var(--card-background);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filterLabel {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--slate-600);
+}
+
+.filterInput, .filterSelect {
+  padding: 0.6rem 0.85rem;
+  border: 1.5px solid var(--slate-200);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  color: var(--slate-800);
+  background-color: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.filterInput:focus, .filterSelect:focus {
+  border-color: var(--primary);
+}
+
+/* Data Table Container */
+.tableContainer {
+  background: var(--card-background);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.925rem;
+}
+
+.thead {
+  background-color: var(--slate-50);
+  border-bottom: 2px solid var(--slate-200);
+}
+
+.th {
+  padding: 1rem 1.25rem;
+  font-weight: 700;
+  color: var(--slate-600);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.tr {
+  border-bottom: 1px solid var(--slate-100);
+  transition: background-color 0.15s ease;
+}
+
+.tr:hover {
+  background-color: var(--slate-50);
+}
+
+.trExceeded {
+  background-color: rgba(254, 226, 226, 0.2);
+}
+
+.trExceeded:hover {
+  background-color: rgba(254, 226, 226, 0.4);
+}
+
+.td {
+  padding: 1rem 1.25rem;
+  vertical-align: middle;
+  color: var(--slate-800);
+}
+
+.patientNameCell {
+  font-weight: 700;
+  color: var(--slate-900);
+}
+
+.nikshayIdCell {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  background-color: var(--slate-100);
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-sm);
+  color: var(--slate-700);
+}
+
+/* Status Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.badgePending { background: var(--pending-bg); color: var(--pending-text); }
+.badgeApproved { background: var(--success-bg); color: var(--success-text); }
+.badgeRejected { background: var(--danger-bg); color: var(--danger-text); }
+
+.badgeWithin { background: var(--primary-bg); color: var(--primary-dark); }
+.badgeExceeded { background: var(--danger-bg); color: var(--danger-text); }
+
+/* Table Action Buttons */
+.actionGroup {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.inspectBtn {
+  background: var(--slate-100);
+  border: 1px solid var(--slate-200);
+  color: var(--slate-700);
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.inspectBtn:hover {
+  background: var(--slate-200);
+}
+
+.approveBtn {
+  background: var(--success-bg);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+  color: var(--success-text);
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.approveBtn:hover {
+  background: var(--success);
+  color: #ffffff;
+}
+
+.rejectBtn {
+  background: var(--danger-bg);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: var(--danger-text);
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.rejectBtn:hover {
+  background: var(--danger);
+  color: #ffffff;
+}
+
+/* Empty State */
+.emptyState {
+  padding: 4rem;
+  text-align: center;
+  color: var(--slate-400);
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* Detail Modal Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modal {
+  background: #ffffff;
+  border-radius: var(--radius-2xl);
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--slate-200);
+  display: flex;
+  flex-direction: column;
+  animation: scaleIn 0.25s ease-out;
+  overflow: hidden;
+}
+
+.modalHeader {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--slate-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--slate-50);
+}
+
+.modalTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--slate-900);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--slate-400);
+  transition: color 0.15s ease;
+}
+
+.closeBtn:hover {
+  color: var(--slate-700);
+}
+
+.modalBody {
+  padding: 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Modal details section layout */
+.modalSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sectionTitle {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--slate-200);
+  padding-bottom: 0.25rem;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.infoLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--slate-500);
+  text-transform: uppercase;
+}
+
+.infoValue {
+  font-size: 0.925rem;
+  font-weight: 700;
+  color: var(--slate-800);
+}
+
+/* Time Journey Comparison card */
+.journeyCompare {
+  display: grid;
+  grid-template-columns: 1fr 50px 1fr;
+  align-items: center;
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+}
+
+.journeyNode {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.journeyDivider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  color: var(--primary);
+}
+
+/* Validator Decision Form in modal */
+.validationCard {
+  background: var(--primary-bg);
+  border: 1px solid var(--primary-light);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.notesInput {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.75rem;
+  border: 1.5px solid var(--slate-200);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  outline: none;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.notesInput:focus {
+  border-color: var(--primary);
+}
+
+.decisionActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .kpiGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .filterBar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .kpiGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .filterBar {
+    grid-template-columns: 1fr;
+  }
+  
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .journeyCompare {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .journeyDivider {
+    transform: rotate(90deg);
+  }
+  
+  .headerArea {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .exportBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
