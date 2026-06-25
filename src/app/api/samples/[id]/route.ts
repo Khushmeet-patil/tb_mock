@@ -51,8 +51,11 @@ export async function PUT(
       return NextResponse.json({ message: 'Failed to write updates to database file' }, { status: 500 });
     }
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('API PUT sample status error:', error);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ 
+      message: 'Internal Server Error', 
+      error: error?.message || String(error)
+    }, { status: 500 });
   }
 }

@@ -11,9 +11,12 @@ export async function GET() {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
     return NextResponse.json({ samples: sorted }, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('API GET samples error:', error);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ 
+      message: 'Internal Server Error', 
+      error: error?.message || String(error)
+    }, { status: 500 });
   }
 }
 
@@ -95,8 +98,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'Failed to write sample to database file' }, { status: 500 });
     }
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('API POST samples error:', error);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ 
+      message: 'Internal Server Error', 
+      error: error?.message || String(error)
+    }, { status: 500 });
   }
 }

@@ -42,14 +42,18 @@ let cachedMongoClient: MongoClient | null = null;
 async function getMongoClient(): Promise<MongoClient> {
   const uri = process.env.MONGODB_URI;
   if (!uri) {
-    throw new Error('MONGODB_URI env is not set');
+    throw new Error('MONGODB_URI environment variable is not defined.');
   }
   
   if (cachedMongoClient) {
     return cachedMongoClient;
   }
   
-  const client = new MongoClient(uri);
+  // Set connection timeout to 8 seconds for fast failure reporting in serverless functions
+  const client = new MongoClient(uri, {
+    connectTimeoutMS: 8000,
+    serverSelectionTimeoutMS: 8000,
+  });
   await client.connect();
   cachedMongoClient = client;
   return client;
@@ -60,24 +64,16 @@ export async function readSamples(): Promise<SampleEntry[]> {
   const uri = process.env.MONGODB_URI;
   
   if (uri) {
-    try {
-      const client = await getMongoClient();
-      const db = client.db('tb_sample_tracking');
-      const collection = db.collection<SampleEntry>('samples');
-      
-      // Fetch all samples, stripping MongoDB's internal _id if necessary
-      const samples = await collection.find({}).toArray();
-      
-      // Map and sanitize the records to match our interface type
-      return samples.map((s: any) => {
-        const { _id, ...rest } = s;
-        return rest as SampleEntry;
-      });
-    } catch (error) {
-      console.error('Error reading samples from MongoDB:', error);
-      // Fail-soft: attempt to fall back to local file if MongoDB connection fails
-      return readLocalSamples();
-    }
+    const client = await getMongoClient();
+    const db = client.db('tb_sample_tracking');
+    const collection = db.collection<SampleEntry>('samples');
+    
+    const samples = await collection.find({}).toArray();
+    
+    return samples.map((s: any) => {
+      const { _id, ...rest } = s;
+      return rest as SampleEntry;
+    });
   } else {
     return readLocalSamples();
   }
@@ -102,21 +98,16 @@ export async function writeSamples(samples: SampleEntry[]): Promise<boolean> {
   const uri = process.env.MONGODB_URI;
   
   if (uri) {
-    try {
-      const client = await getMongoClient();
-      const db = client.db('tb_sample_tracking');
-      const collection = db.collection<SampleEntry>('samples');
-      
-      // Full collection synchronization
-      await collection.deleteMany({});
-      if (samples.length > 0) {
-        await collection.insertMany(samples);
-      }
-      return true;
-    } catch (error) {
-      console.error('Error writing samples to MongoDB:', error);
-      return false;
+    const client = await getMongoClient();
+    const db = client.db('tb_sample_tracking');
+    const collection = db.collection<SampleEntry>('samples');
+    
+    // Full collection synchronization
+    await collection.deleteMany({});
+    if (samples.length > 0) {
+      await collection.insertMany(samples);
     }
+    return true;
   } else {
     try {
       const dirPath = path.dirname(DATA_FILE_PATH);
